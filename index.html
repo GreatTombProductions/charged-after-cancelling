@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; worker-src 'self' blob:; connect-src 'none'; img-src 'self' data: blob:; style-src 'self'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
+  <meta name="referrer" content="no-referrer">
+  <title>Charged after cancelling: ask your credit card company to correct the charges</title>
+  <meta name="description" content="You cancelled, and the charges kept coming on your credit card. Bring your statements and emails; this page matches each charge to its statement, counts the 60 days a notice has to arrive in, and drafts the notice for your card company. Nothing you add leaves your browser.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#start">Skip to adding your papers</a>
+<header class="masthead">
+  <div class="wrap">
+    <p class="eyebrow">Credit card charges after you cancelled</p>
+    <h1>Charged after cancelling</h1>
+    <p class="lede">You cancelled something and your credit card is still being charged. Bring what you have: the cancellation email, your statements, what your app shows. This page works out which statement each charge first appeared on, how long you have, and where to write. It drafts a <strong>billing-error notice</strong> for you to check and send: a letter telling your card company that a charge on your statement is wrong and why. If it arrives within 60 days of that statement being sent, the card company has to look into the charge and answer you in writing.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="privacy" class="callout" aria-labelledby="privacy-h">
+    <h2 id="privacy-h">Before you add anything</h2>
+    <ul>
+      <li><strong>Nothing you add leaves this browser.</strong> The page loads only its own files, nothing on the other end receives what you add, and there is no account. It sends nothing and contacts no one, not your bank and not the business.</li>
+      <li><strong>Nothing is kept unless you save it.</strong> If you close this tab without saving, everything you added is gone.</li>
+      <li><strong>To keep your work</strong>, use "Save your work". It downloads one file to your device, which you can open here again later with "Open your saved work", even half-finished. That file holds the text of your papers, so treat it like the papers themselves.</li>
+      <li><strong>To delete it</strong>, delete that file from your device (and empty the trash or recycle bin). There is no copy anywhere else.</li>
+      <li>Use invented or your own records only. On a shared computer, save to a place only you can reach, and delete the downloaded files when you finish.</li>
+    </ul>
+  </section>
+
+  <section id="start" class="card" aria-labelledby="start-h">
+    <h2 id="start-h">1. Add your papers</h2>
+    <p class="hint">Statements, emails from the business, "your statement is ready" emails, a list copied from your card app. Text files (.txt, .eml) and PDF statements are read here, in the browser. Add each one; you can remove any.</p>
+    <div class="row">
+      <label class="button primary" for="fileInput">Choose files</label>
+      <input id="fileInput" class="visually-hidden" type="file" multiple accept=".txt,.eml,.pdf,.text,text/plain,message/rfc822,application/pdf">
+      <label class="button" for="openCase">Open your saved work</label>
+      <input id="openCase" class="visually-hidden" type="file" accept=".json,application/json">
+    </div>
+    <details id="pasteBox">
+      <summary>Or paste text (an email, statement lines, what your app shows)</summary>
+      <label for="pasteName">What is it? (a short name)</label>
+      <input id="pasteName" type="text" placeholder="e.g. cancellation email">
+      <label for="pasteText">Text</label>
+      <textarea id="pasteText" rows="8" placeholder="Paste here. For an email, include the From, Date and Subject lines."></textarea>
+      <div class="row"><button id="pasteAdd" type="button" class="button primary">Add this text</button></div>
+    </details>
+    <label for="ownWords">In your own words, what happened? (optional; kept with your case, not put in the notice)</label>
+    <textarea id="ownWords" rows="3" placeholder="e.g. I cancelled my gym in June and they keep charging me."></textarea>
+    <p id="status" class="status" role="status" aria-live="polite" data-status="empty">Add your papers to begin.</p>
+    <div id="papers"></div>
+  </section>
+
+  <div id="results" hidden>
+    <div id="changed"></div>
+    <div id="exit"></div>
+    <section id="urgent" class="card attention" aria-labelledby="urgent-h" hidden></section>
+    <section id="questions" class="card attention" aria-labelledby="questions-h" hidden></section>
+    <section id="found" class="card" aria-labelledby="found-h"></section>
+    <section id="charges" class="card" aria-labelledby="charges-h"></section>
+    <section id="notice" class="card" aria-labelledby="notice-h"></section>
+    <section id="evidence" class="card" aria-labelledby="evidence-h"></section>
+    <section id="outside" class="card" aria-labelledby="outside-h"></section>
+    <section id="future" class="card" aria-labelledby="future-h"></section>
+    <section id="todo" class="card" aria-labelledby="todo-h"></section>
+    <section id="timeline" class="card" aria-labelledby="timeline-h"></section>
+  </div>
+
+  <section id="keep" class="card sticky" aria-labelledby="keep-h" hidden>
+    <h2 id="keep-h" class="visually-hidden">Keep your work</h2>
+    <div class="row">
+      <button id="saveCase" type="button" class="button primary">Save your work</button>
+      <button id="downloadPacket" type="button" class="button">Download packet (.txt)</button>
+      <button id="printPacket" type="button" class="button">Print</button>
+      <button id="clearAll" type="button" class="button danger">Start over</button>
+      <span id="saveState" class="hint"></span>
+    </div>
+  </section>
+
+  <section id="limits" class="card" aria-labelledby="limits-h">
+    <h2 id="limits-h">What this page does not do</h2>
+    <ul>
+      <li>It prepares; it does not send, submit or contact anyone. Whether, how and when to send is yours.</li>
+      <li>It does not decide whether your cancellation took effect, what your agreement required, or whether you owe a charge. Those depend on the agreement and the law that applies to it.</li>
+      <li>It does not predict a refund or any other result. A temporary credit from your card company is not a final result.</li>
+      <li>It covers personal credit cards issued in the United States. Debit cards, bank accounts, business cards, prepaid cards and cards issued outside the United States follow other rules; the page says so and points to your bank or card company.</li>
+      <li>It does not look up your card company's address. The notice goes where your own statement says.</li>
+      <li>It does not remind you. Dates are counted when you open the page; save your work and open it again to recount.</li>
+      <li>It is not legal advice. Rules were read from the regulation (12 CFR 1026.13 and its official interpretations) on 16 Nov 2026.</li>
+    </ul>
+  </section>
+  <p class="quest-board-feedback" style="margin:1.25rem auto;max-width:720px;padding:0 1rem;text-align:center;font-size:0.85rem;color:#888;">Have feedback or a related data lead? <a href="https://greattombproductions.github.io/quest-board/?project=charged-after-cancelling#suggest" target="_blank" rel="noopener">Suggest it on the Quest Board</a>.</p>
+</main>
+
+<pre id="printArea" class="print-only"></pre>
+<script type="module" src="app.mjs"></script>
+</body>
+</html>
