@@ -89,3 +89,5 @@ ol.todo li { margin: 4px 0; }
 .closed-note { background: var(--bad-bg); border-radius: 8px; padding: 6px 10px; margin: 6px 0; font-size: .93rem; }
 ol.todo li.soon { font-weight: 600; }
 .shown-date { grid-column: 1 / -1; }
+.quest-board-feedback { margin: 1.25rem auto; max-width: 720px; padding: 0 1rem; text-align: center; font-size: 0.85rem; color: #888; }
+.quest-board-feedback a { color: var(--accent); }
